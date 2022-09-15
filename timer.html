@@ -45,8 +45,8 @@
                 color: urlParams.color || 'black',
                 fontFamily: urlParams.fontFamily || `'Segoe UI', 'Helvetica Neue', Verdana`,
                 fontSize: !isNaN(urlParams.fontSize)
-                            ? urlParams.fontFamily + 'px'
-                            : urlParams.fontFamily || '32px',
+                            ? urlParams.fontSize + 'px'
+                            : (urlParams.fontSize || '32px'),
                 fontWeight: urlParams.fontWeight || 700,
                 padding: urlParams.padding || '10px',
                 ring: ['', '1', 'true'].includes(urlParams.ring?.toLowerCase()),
