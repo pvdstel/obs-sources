@@ -66,6 +66,7 @@
             elMain.style.fontSize = settings.fontSize;
             elMain.style.fontWeight = settings.fontWeight;
             elMain.style.padding = settings.padding;
+            elTime.innerText = formatTime(settings.start);
 
             const onTimerZero = () => {
                 if (settings.ring) {
@@ -74,14 +75,15 @@
                 }
             };
 
-            let timerTime = settings.start;
-            elTime.innerText = formatTime(timerTime);
+            const startTime = performance.now();
             const shouldStart = settings.start > 0 || settings.step > 0;
             if (shouldStart) {
                 timerInterval = setInterval(() => {
-                    timerTime += settings.step;
-                    elTime.innerText = formatTime(timerTime);
-                    if (settings.start > 0 && timerTime <= 0) {
+                    const elapsedSeconds = Math.floor((performance.now() - startTime) / 1000);
+                    const steppedSeconds = elapsedSeconds * settings.step;
+                    const time = settings.start + steppedSeconds;
+                    elTime.innerText = formatTime(time);
+                    if (settings.start > 0 && time <= 0) {
                         clearInterval(timerInterval);
                         onTimerZero();
                     }
