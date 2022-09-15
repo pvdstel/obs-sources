@@ -27,7 +27,23 @@
     <body>
         <h1>OBS browser sources</h1>
         <ul>
-            <a href="timer.html">Timer</a>
+            <li>
+                <p><a href="timer.html">Timer</a>: add to OBS with the <i>Shutdown source when not visible</i> option to restart the timer when it becomes visible.</p>
+                <p>Options:</p>
+                <ul>
+                    <li><code>name</code>: name of the timer</li>
+                    <li><code>start</code>: start time in seconds</li>
+                    <li><code>step</code>: second increase per second (defaults to <code>-1</code>)</li>
+                    <li><code>background</code>: background color (defaults to transparent)</li>
+                    <li><code>color</code>: text color (defaults to <code>black</code>)</li>
+                    <li><code>fontFamily</code>: font family for the text</li>
+                    <li><code>fontSize</code>: font size for the text (defaults to <code>32px</code>)</li>
+                    <li><code>fontWeight</code>: font weight for the text (defaults to bold)</li>
+                    <li><code>padding</code>: spacing around the text</li>
+                    <li><code>ring</code>: controls whether a notification sound is played when the timer reaches zero (off by default)</li>
+                    <li><code>ringtone</code>: the audio file that is played for the notification</li>
+                </ul>
+            </li>
         </ul>
     </body>
 </html>
