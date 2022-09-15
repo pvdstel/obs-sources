@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Countdown timer</title>
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            p {
+                margin: 0;
+            }
+            #main {
+                padding: 0;
+                margin: 0;
+                display: inline-block;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="main">
+            <p><span id="name">Timer: </span> <span id="time">0:00</span></p>
+        </div>
+        <script type="application/javascript">
+            const refreshInterval = 1000;
+            const doubleDigits = n => n < 10 ? `0${n}` : String(n);
+            const formatTime = seconds => {
+                const d = new Date(seconds * 1000);
+                if (d.getUTCHours() > 0) {
+                    return `${d.getUTCHours()}:${doubleDigits(d.getUTCMinutes())}:${doubleDigits(d.getUTCSeconds())}`;
+                    return d.toISOString().substring(11, 19);
+                } else {
+                    return `${d.getUTCMinutes()}:${doubleDigits(d.getUTCSeconds())}`;
+                    return d.toISOString().substring(14, 19);
+                }
+            };
+            
+            const urlSearchParams = new URLSearchParams(window.location.search);
+            const urlParams = Object.fromEntries(urlSearchParams.entries());
+            const settings = {
+                name: urlParams.name || 'Timer',
+                start: Number(urlParams.start) || 0,
+                step: Number(urlParams.step) || -1,
+                background: urlParams.background || 'transparent',
+                color: urlParams.color || 'black',
+                fontFamily: urlParams.fontFamily || `'Segoe UI', 'Helvetica Neue', Verdana`,
+                fontSize: !isNaN(urlParams.fontSize)
+                            ? urlParams.fontFamily + 'px'
+                            : urlParams.fontFamily || '32px',
+                fontWeight: urlParams.fontWeight || 700,
+                padding: urlParams.padding || '10px',
+                ring: !!urlParams.ring,
+                ringtone: urlParams.ringtone || '/media/ringtone-1-46486.mp3',
+            };
+            console.table(settings);
+
+            const elMain = document.getElementById('main');
+            const elName = document.getElementById('name');
+            const elTime = document.getElementById('time');
+            elName.innerText = settings.name;
+            elMain.style.background = settings.background;
+            elMain.style.color = settings.color;
+            elMain.style.fontFamily = settings.fontFamily;
+            elMain.style.fontSize = settings.fontSize;
+            elMain.style.fontWeight = settings.fontWeight;
+            elMain.style.padding = settings.padding;
+
+            const onTimerZero = () => {
+                if (settings.ring) {
+                    const audio = new Audio(settings.ringtone);
+                    audio.play();
+                }
+            };
+
+            let timerTime = settings.start;
+            elTime.innerText = formatTime(timerTime);
+            timerInterval = setInterval(() => {
+                timerTime += settings.step;
+                elTime.innerText = formatTime(timerTime);
+                if (settings.start > 0 && timerTime <= 0) {
+                    clearInterval(timerInterval);
+                    onTimerZero();
+                }
+            }, 1000);
+        </script>
+    </body>
+</html>
