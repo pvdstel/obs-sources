@@ -76,14 +76,17 @@
 
             let timerTime = settings.start;
             elTime.innerText = formatTime(timerTime);
-            timerInterval = setInterval(() => {
-                timerTime += settings.step;
-                elTime.innerText = formatTime(timerTime);
-                if (settings.start > 0 && timerTime <= 0) {
-                    clearInterval(timerInterval);
-                    onTimerZero();
-                }
-            }, 1000);
+            const shouldStart = settings.start > 0 || settings.step > 0;
+            if (shouldStart) {
+                timerInterval = setInterval(() => {
+                    timerTime += settings.step;
+                    elTime.innerText = formatTime(timerTime);
+                    if (settings.start > 0 && timerTime <= 0) {
+                        clearInterval(timerInterval);
+                        onTimerZero();
+                    }
+                }, 1000);
+            }
         </script>
     </body>
 </html>
