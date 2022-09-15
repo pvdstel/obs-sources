@@ -30,10 +30,8 @@
                 const d = new Date(seconds * 1000);
                 if (d.getUTCHours() > 0) {
                     return `${d.getUTCHours()}:${doubleDigits(d.getUTCMinutes())}:${doubleDigits(d.getUTCSeconds())}`;
-                    return d.toISOString().substring(11, 19);
                 } else {
                     return `${d.getUTCMinutes()}:${doubleDigits(d.getUTCSeconds())}`;
-                    return d.toISOString().substring(14, 19);
                 }
             };
             
